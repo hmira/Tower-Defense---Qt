@@ -44,6 +44,8 @@
 #include <QBrush>
 #include <QFont>
 #include <QPen>
+#include <QList>
+#include <QVector2D>
 
 #include "enemy.h"
 

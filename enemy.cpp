@@ -23,3 +23,9 @@ void Enemy::Update(int x, int y)
     this->drawing_origin.setX(x - hSizeX);
     this->drawing_origin.setY(y - hSizeY);
 }
+
+void Enemy::Draw(QPainter *painter, int x, int y)
+{
+    this->Update(x, y);
+    painter->drawPixmap(this->drawing_origin, this->pixmap);
+}

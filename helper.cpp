@@ -53,8 +53,9 @@ Helper::Helper()
     background = QBrush(QPixmap("/home/hmirap/qt_test2-build-desktop/bg.png"));
     //background = QBrush(QColor(64, 32, 64));
     circleBrush = QBrush(QPixmap("/home/hmirap/qt_test2/apple.png"));
-    pixmap = QPixmap("/home/hmirap/qt_test2/apple.png");
 
+    QPixmap qpapple("/home/hmirap/qt_test2/apple.png");
+    enemy = *new Enemy(qpapple);
 
 }
 //! [0]
@@ -77,10 +78,8 @@ void Helper::paint(QPainter *painter, QPaintEvent *event, int elapsed)
     painter->drawPixmap( 1 * MapX + 45, 3 * MapY + 40, pixmap);
     painter->drawPixmap( 1 * MapX + 45, 4 * MapY + 40, pixmap);*/
 
-    QPixmap qp("/home/hmirap/qt_test2/apple.png");
-    enemy = *new Enemy(qp);
-    enemy.Update(1 * MapX + 45, 0 * MapY + 40);
-    painter->drawPixmap(enemy.drawing_origin, enemy.pixmap);
+
+    enemy.Draw(painter, 1 * MapX + 45, 0 * MapY + 40);
 
     qreal r = elapsed/1000.0;
     int n = 78;
