@@ -66,7 +66,7 @@ protected:
 
 private:
     Helper *helper;
-    int elapsed;
+    long elapsed;
 };
 //! [0]
 

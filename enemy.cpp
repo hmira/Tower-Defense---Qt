@@ -1,15 +1,20 @@
 #include "enemy.h"
+#include <QDebug>
 
 Enemy::Enemy()
 {
     this->SizeX = this->SizeY = 35;
     this->hSizeX = this->hSizeY = 17;
     pixmap = *new QPixmap("/home/hmirap/qt_test2/apple.png");
+    this->spawned = 1;
+    this->speed = 0.15f;
 }
 
 
 Enemy::Enemy(QPixmap pixmap)
 {
+    this->spawned = 1;
+    this->speed = 0.15f;
     this->SizeX = this->SizeY = 35;
     this->hSizeX = this->hSizeY = 17;
     this->pixmap = pixmap;
@@ -35,10 +40,9 @@ void Enemy::Draw(QPainter *painter)
     painter->drawPixmap(this->drawing_origin, this->pixmap);
 }
 
-void Enemy::Move(int elapsed)
+void Enemy::Move(long elapsed)
 {
-    int spawned = 0;
-    float lap = elapsed - spawned;
+    float lap = (elapsed - spawned) * this->speed;
         for (int i = 0; i < this->path->size() - 1; ++i)
         {
             QPoint q = *this->path->at(i + 1) - *this->path->at(i);
@@ -54,7 +58,5 @@ void Enemy::Move(int elapsed)
                 this->Update(new_point.x(), new_point.y());
                 return;
             }
-
         }
-
 }

@@ -61,7 +61,7 @@ public:
     Helper();
 
 public:
-    void paint(QPainter *painter, QPaintEvent *event, int elapsed);
+    void paint(QPainter *painter, QPaintEvent *event, long elapsed);
 
 public:
     QBrush background;
@@ -70,7 +70,7 @@ public:
     QPen circlePen;
     QPen textPen;
     QPixmap pixmap;
-    Enemy enemy;
+    Enemy* enemy;
 
 private:
     int MapX, MapY;

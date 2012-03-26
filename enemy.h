@@ -15,7 +15,7 @@ public:
     void Update(int x, int y);
     void Draw(QPainter *painter, int x, int y);
     void Draw(QPainter *painter);
-    void Move(int elapsed);
+    void Move(long elapsed);
 
     QPixmap pixmap;
     QPoint drawing_origin;
@@ -25,8 +25,10 @@ public:
 
     void setPath(QList<QPoint*> *path) {this->path = path;}
 
-private:
+public:
     QList<QPoint*>* path;
+    int spawned;
+    float speed;
 };
 
 #endif // ENEMY_H

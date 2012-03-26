@@ -68,15 +68,15 @@ Helper::Helper()
     circleBrush = QBrush(QPixmap("/home/hmirap/qt_test2/apple.png"));
 
     QPixmap qpapple("/home/hmirap/qt_test2/apple.png");
-    enemy = *new Enemy(qpapple);
-    enemy.setPath(path);
+    enemy = new Enemy(qpapple);
+    enemy->setPath(path);
 
 
 }
 //! [0]
 
 //! [1]
-void Helper::paint(QPainter *painter, QPaintEvent *event, int elapsed)
+void Helper::paint(QPainter *painter, QPaintEvent *event, long elapsed)
 {
     painter->fillRect(event->rect(), background);
     //painter->translate(200, 200);
@@ -94,9 +94,11 @@ void Helper::paint(QPainter *painter, QPaintEvent *event, int elapsed)
     painter->drawPixmap( 1 * MapX + 45, 4 * MapY + 40, pixmap);*/
 
 
-    enemy.Move(elapsed);
-    enemy.Draw(painter);
+    enemy->Move(elapsed);
+    enemy->Draw(painter);
+    //enemy->Draw(painter, 1 * MapX + 45, 0 * MapY + 40);
 
+    //enemy.Update();
 
 
     qreal r = elapsed/1000.0;
