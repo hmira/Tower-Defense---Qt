@@ -46,6 +46,19 @@ Helper::Helper()
 {
     MapX = 90;
     MapY = 80;
+
+    this->path = new QList<QPoint*>();
+    this->path->push_back(new QPoint(45 + 1 * MapX, 40 + 0 * MapY));
+    this->path->push_back(new QPoint(45 + 1 * MapX, 40 + 4 * MapY));
+    this->path->push_back(new QPoint(45 + 3 * MapX, 40 + 4 * MapY));
+    this->path->push_back(new QPoint(45 + 3 * MapX, 40 + 1 * MapY));
+    this->path->push_back(new QPoint(45 + 5 * MapX, 40 + 1 * MapY));
+    this->path->push_back(new QPoint(45 + 5 * MapX, 40 + 4 * MapY));
+    this->path->push_back(new QPoint(45 + 7 * MapX, 40 + 4 * MapY));
+    this->path->push_back(new QPoint(45 + 7 * MapX, 40 + 1 * MapY));
+    this->path->push_back(new QPoint(45 + 9 * MapX, 40 + 1 * MapY));
+    this->path->push_back(new QPoint(45 + 9 * MapX, 40 + 6 * MapY));
+
     //QLinearGradient gradient(QPointF(20, -20), QPointF(100, 180));
     //gradient.setColorAt(0.0, Qt::white);
     //gradient.setColorAt(1.0, Qt::blue);
@@ -56,6 +69,8 @@ Helper::Helper()
 
     QPixmap qpapple("/home/hmirap/qt_test2/apple.png");
     enemy = *new Enemy(qpapple);
+    enemy.setPath(path);
+
 
 }
 //! [0]
@@ -79,7 +94,10 @@ void Helper::paint(QPainter *painter, QPaintEvent *event, int elapsed)
     painter->drawPixmap( 1 * MapX + 45, 4 * MapY + 40, pixmap);*/
 
 
-    enemy.Draw(painter, 1 * MapX + 45, 0 * MapY + 40);
+    enemy.Move(elapsed);
+    enemy.Draw(painter);
+
+
 
     qreal r = elapsed/1000.0;
     int n = 78;

@@ -74,6 +74,7 @@ public:
 
 private:
     int MapX, MapY;
+    QList<QPoint*> *path;
 
 };
 //! [0]

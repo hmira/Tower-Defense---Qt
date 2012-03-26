@@ -29,3 +29,32 @@ void Enemy::Draw(QPainter *painter, int x, int y)
     this->Update(x, y);
     painter->drawPixmap(this->drawing_origin, this->pixmap);
 }
+
+void Enemy::Draw(QPainter *painter)
+{
+    painter->drawPixmap(this->drawing_origin, this->pixmap);
+}
+
+void Enemy::Move(int elapsed)
+{
+    int spawned = 0;
+    float lap = elapsed - spawned;
+        for (int i = 0; i < this->path->size() - 1; ++i)
+        {
+            QPoint q = *this->path->at(i + 1) - *this->path->at(i);
+
+            int length = q.manhattanLength();
+
+            if (lap > length)
+                lap -= length;
+            else
+            {
+                float e = (float)lap / length;
+                QPoint new_point = *this->path->at(i) + e * q;
+                this->Update(new_point.x(), new_point.y());
+                return;
+            }
+
+        }
+
+}
