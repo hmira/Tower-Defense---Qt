@@ -70,7 +70,7 @@ public:
     QPen circlePen;
     QPen textPen;
     QPixmap pixmap;
-    Enemy* enemy;
+    QList<Enemy*> enemies;
 
 private:
     int MapX, MapY;

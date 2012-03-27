@@ -20,6 +20,15 @@ Enemy::Enemy(QPixmap pixmap)
     this->pixmap = pixmap;
 }
 
+Enemy::Enemy(QPixmap pixmap, QList<QPoint *> *path, int spawned)
+{
+    this->spawned = spawned;
+    this->path = path;
+    this->speed = 0.15f;
+    this->SizeX = this->SizeY = 35;
+    this->hSizeX = this->hSizeY = 17;
+    this->pixmap = pixmap;
+}
 
 void Enemy::Update(int x, int y)
 {

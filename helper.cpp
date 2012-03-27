@@ -68,10 +68,10 @@ Helper::Helper()
     circleBrush = QBrush(QPixmap("/home/hmirap/qt_test2/apple.png"));
 
     QPixmap qpapple("/home/hmirap/qt_test2/apple.png");
-    enemy = new Enemy(qpapple);
-    enemy->setPath(path);
 
-
+    for (int i = 0; i < 5; ++i) {
+        enemies.push_back(new Enemy(qpapple, path, i*1000));
+    }
 }
 //! [0]
 
@@ -94,8 +94,11 @@ void Helper::paint(QPainter *painter, QPaintEvent *event, long elapsed)
     painter->drawPixmap( 1 * MapX + 45, 4 * MapY + 40, pixmap);*/
 
 
-    enemy->Move(elapsed);
-    enemy->Draw(painter);
+
+    for (int i = 0; i < enemies.size(); ++i) {
+        enemies.at(i)->Move(elapsed);
+        enemies.at(i)->Draw(painter);
+    }
     //enemy->Draw(painter, 1 * MapX + 45, 0 * MapY + 40);
 
     //enemy.Update();

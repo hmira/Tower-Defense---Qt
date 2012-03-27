@@ -11,6 +11,8 @@ class Enemy
 public:
     Enemy();
     Enemy(QPixmap pixmap);
+    Enemy(QPixmap pixmap, QList<QPoint*> *path, int spawned);
+
 
     void Update(int x, int y);
     void Draw(QPainter *painter, int x, int y);
