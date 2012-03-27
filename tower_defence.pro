@@ -4,13 +4,15 @@ HEADERS     = glwidget.h \
               helper.h \
               widget.h \
               window.h \
-    enemy.h
+    enemy.h \
+    cannon.h
 SOURCES     = glwidget.cpp \
               helper.cpp \
               main.cpp \
               widget.cpp \
               window.cpp \
-    enemy.cpp
+    enemy.cpp \
+    cannon.cpp
 
 # install
 target.path = $$[QT_INSTALL_EXAMPLES]/opengl/tower_defence

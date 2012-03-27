@@ -15,7 +15,6 @@ public:
 
 
     void Update(int x, int y);
-    void Draw(QPainter *painter, int x, int y);
     void Draw(QPainter *painter);
     void Move(long elapsed);
 

@@ -39,6 +39,7 @@
 ****************************************************************************/
 
 #include <QtGui>
+#include <QTransform>
 #include "helper.h"
 
 //! [0]
@@ -59,19 +60,23 @@ Helper::Helper()
     this->path->push_back(new QPoint(45 + 9 * MapX, 40 + 1 * MapY));
     this->path->push_back(new QPoint(45 + 9 * MapX, 40 + 6 * MapY));
 
-    //QLinearGradient gradient(QPointF(20, -20), QPointF(100, 180));
-    //gradient.setColorAt(0.0, Qt::white);
-    //gradient.setColorAt(1.0, Qt::blue);
 
     background = QBrush(QPixmap("/home/hmirap/qt_test2-build-desktop/bg.png"));
     //background = QBrush(QColor(64, 32, 64));
     circleBrush = QBrush(QPixmap("/home/hmirap/qt_test2/apple.png"));
 
     QPixmap qpapple("/home/hmirap/qt_test2/apple.png");
+    QPixmap qpcannon("cannon.png");
 
     for (int i = 0; i < 5; ++i) {
         enemies.push_back(new Enemy(qpapple, path, i*1000));
     }
+
+    QTransform transform;
+    cannon = new Cannon(qpcannon);
+    //cannon->SetRotation(30);
+    //cannon->Update(45,40);
+    cannon->Update(400,360);
 }
 //! [0]
 
@@ -79,41 +84,22 @@ Helper::Helper()
 void Helper::paint(QPainter *painter, QPaintEvent *event, long elapsed)
 {
     painter->fillRect(event->rect(), background);
-    //painter->translate(200, 200);
 //! [1]
 
 //! [2]
     painter->save();
     painter->setBrush(circleBrush);
-    //painter->rotate(elapsed * 0.030);
-
-    /*painter->drawPixmap( 1 * MapX + 45, 0 * MapY + 40, pixmap);
-    painter->drawPixmap( 1 * MapX + 45, 1 * MapY + 40, pixmap);
-    painter->drawPixmap( 1 * MapX + 45, 2 * MapY + 40, pixmap);
-    painter->drawPixmap( 1 * MapX + 45, 3 * MapY + 40, pixmap);
-    painter->drawPixmap( 1 * MapX + 45, 4 * MapY + 40, pixmap);*/
-
-
 
     for (int i = 0; i < enemies.size(); ++i) {
         enemies.at(i)->Move(elapsed);
         enemies.at(i)->Draw(painter);
     }
-    //enemy->Draw(painter, 1 * MapX + 45, 0 * MapY + 40);
 
-    //enemy.Update();
-
+    cannon->Draw(painter);
+    cannon->Aim(enemies.at(0)->center);
 
     qreal r = elapsed/1000.0;
     int n = 78;
-    /*for (int i = 0; i < n; ++i) {
-        painter->rotate(30);
-        qreal radius = 0 + ((i+r));
-        qreal circleRadius = 1 + ((i+r));
-        painter->drawPixmap(radius * 3 + 20 , -circleRadius, pixmap);
-        painter->drawEllipse(QRectF(radius * 3 + 20 , -circleRadius,
-                                    circleRadius*0.6, circleRadius*0.6));
-    }*/
     painter->restore();
 //! [2]
 

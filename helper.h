@@ -48,6 +48,7 @@
 #include <QVector2D>
 
 #include "enemy.h"
+#include "cannon.h"
 
 QT_BEGIN_NAMESPACE
 class QPainter;
@@ -71,6 +72,7 @@ public:
     QPen textPen;
     QPixmap pixmap;
     QList<Enemy*> enemies;
+    Cannon* cannon;
 
 private:
     int MapX, MapY;
