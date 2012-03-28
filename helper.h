@@ -63,7 +63,7 @@ public:
     Helper();
 
 public:
-    void paint(QPainter *painter, QPaintEvent *event, long elapsed);
+    void paint(QPainter *painter, QPaintEvent *event, long elapsed, QPoint focus);
 
 public:
     QPixmap qp_bullet;
@@ -80,6 +80,9 @@ public:
 private:
     int MapX, MapY;
     QList<QPoint*> *path;
+
+private:
+    void DrawHighlight(QPainter * painter, QPoint pos);
 
 };
 //! [0]

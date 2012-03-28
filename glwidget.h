@@ -42,8 +42,8 @@
 #define GLWIDGET_H
 
 #include <QGLWidget>
+#include <QPoint>
 
-//! [0]
 class Helper;
 QT_BEGIN_NAMESPACE
 class QPaintEvent;
@@ -67,6 +67,7 @@ protected:
 private:
     Helper *helper;
     long elapsed;
+    QPoint focus;
 };
 //! [0]
 

@@ -1,4 +1,5 @@
 #include <QtGui>
+#include <QDebug>
 #include "glwidget.h"
 #include "helper.h"
 
@@ -24,10 +25,11 @@ void GLWidget::paintEvent(QPaintEvent *event)
     QPainter painter;
     painter.begin(this);
     painter.setRenderHint(QPainter::Antialiasing);
-    helper->paint(&painter, event, elapsed);
+    helper->paint(&painter, event, elapsed, focus);
     painter.end();
 }
 
 void GLWidget::mousePressEvent(QMouseEvent * event)
 {
+    this->focus = event->pos();
 }

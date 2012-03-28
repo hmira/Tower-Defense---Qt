@@ -20,16 +20,14 @@ Helper::Helper()
     this->path->push_back(new QPoint(45 + 9 * MapX, 40 + 6 * MapY));
 
 
-    background = QBrush(QPixmap("/home/hmirap/qt_test2-build-desktop/bg.png"));
-
-    QPixmap qpapple("/home/hmirap/qt_test2/apple.png");;
+    background = QBrush(QPixmap("bg.png"));
 
     this->qp_cannon = QPixmap("cannon.png");
     this->qp_bullet = QPixmap("bullet.png");
     this->qp_enemy = QPixmap("apple.png");
 
     for (int i = 0; i < 5; ++i) {
-        enemies.push_back(new Enemy(qpapple, path, i*1000));
+        enemies.push_back(new Enemy(this->qp_enemy, path, i*1000));
     }
 
     cannons.push_back(new Cannon(qp_cannon,4 * MapX + 45, 40 + 2 * MapY));
@@ -44,10 +42,16 @@ Helper::Helper()
                                 QVector2D(-5,10), QVector2D(2,0));
 }
 
-void Helper::paint(QPainter *painter, QPaintEvent *event, long elapsed)
+void Helper::paint(QPainter *painter, QPaintEvent *event, long elapsed, QPoint focus)
 {
+
     painter->fillRect(event->rect(), background);
     painter->save();
+
+    if (!focus.isNull())
+    {
+        DrawHighlight(painter, focus);
+    }
 
     bullet->Move(elapsed);
     bullet->Draw(painter);
@@ -71,4 +75,10 @@ void Helper::paint(QPainter *painter, QPaintEvent *event, long elapsed)
     }
 
     painter->restore();
+}
+
+void Helper::DrawHighlight(QPainter *painter, QPoint pos)
+{
+    QPoint a(pos.x() - pos.x() % 90, pos.y() - pos.y() % 80 );
+    painter->drawPixmap(a,QPixmap("high"));
 }
