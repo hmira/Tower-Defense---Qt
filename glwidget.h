@@ -43,6 +43,9 @@
 
 #include <QGLWidget>
 #include <QPoint>
+#include <QList>
+
+#include "cannon.h"
 
 class Helper;
 QT_BEGIN_NAMESPACE
@@ -57,6 +60,7 @@ class GLWidget : public QGLWidget
 public:
     GLWidget(Helper *helper, QWidget *parent);
     void mousePressEvent(QMouseEvent * event);
+    void mouseDoubleClickEvent(QMouseEvent *event);
 
 public slots:
     void animate();
@@ -68,6 +72,11 @@ private:
     Helper *helper;
     long elapsed;
     QPoint focus;
+
+    int MapX, MapY;
+
+    QPixmap qp_cannon;
+    QList<Cannon*> cannons;
 };
 //! [0]
 

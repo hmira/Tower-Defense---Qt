@@ -30,19 +30,12 @@ Helper::Helper()
         enemies.push_back(new Enemy(this->qp_enemy, path, i*1000));
     }
 
-    cannons.push_back(new Cannon(qp_cannon,4 * MapX + 45, 40 + 2 * MapY));
-    cannons.push_back(new Cannon(qp_cannon,2 * MapX + 45, 40 + 3 * MapY));
-    cannons.push_back(new Cannon(qp_cannon,6 * MapX + 45, 40 + 3 * MapY));
 
     this->bullet = new Bullet(QVector2D(10,10),QVector2D(620,320),1000,qp_bullet);
 
-    QVector2D e;
-    e = cannons.at(0)->GetInterSect(QVector2D(2,0), QVector2D(2,10),
-                                1, 1,
-                                QVector2D(-5,10), QVector2D(2,0));
 }
 
-void Helper::paint(QPainter *painter, QPaintEvent *event, long elapsed, QPoint focus)
+void Helper::paint(QPainter *painter, QPaintEvent *event, long elapsed, QPoint focus, QList<Cannon*> cannons)
 {
 
     painter->fillRect(event->rect(), background);
@@ -52,9 +45,6 @@ void Helper::paint(QPainter *painter, QPaintEvent *event, long elapsed, QPoint f
     {
         DrawHighlight(painter, focus);
     }
-
-    //bullet->Move(elapsed);
-    //bullet->Draw(painter);
 
     for (int i = 0; i < bullets.size(); ++i) {
         bullets.at(i)->Move(elapsed);
@@ -90,7 +80,7 @@ void Helper::paint(QPainter *painter, QPaintEvent *event, long elapsed, QPoint f
         }
         j = (j == enemies.size()) ? j-1:j;
         if (!c)
-            this->cannons.at(i)->Aim(enemies.first()->center);
+            cannons.at(i)->Aim(enemies.first()->center);
         else
             cannons.at(i)->Aim(enemies.at(j)->center);
     }

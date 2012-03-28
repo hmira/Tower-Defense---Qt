@@ -63,7 +63,7 @@ public:
     Helper();
 
 public:
-    void paint(QPainter *painter, QPaintEvent *event, long elapsed, QPoint focus);
+    void paint(QPainter *painter, QPaintEvent *event, long elapsed, QPoint focus, QList<Cannon*> cannons);
 
 public:
     QPixmap qp_bullet;
@@ -73,7 +73,6 @@ public:
     QBrush background;
     QPixmap pixmap;
     QList<Enemy*> enemies;
-    QList<Cannon*> cannons;
     QList<Bullet*> bullets;
     Cannon *cannon;
     Bullet *bullet;
