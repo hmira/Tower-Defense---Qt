@@ -13,7 +13,6 @@ Bullet::Bullet(QVector2D from, QVector2D to, long spawned, QPixmap pixmap)
     this->direction = to - from;
     this->direction.normalize();
     this->hitEnd = false;
-    this->speed = 0.4;
 }
 
 void Bullet::Move(long elapsed)

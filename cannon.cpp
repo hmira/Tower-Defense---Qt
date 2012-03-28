@@ -76,9 +76,24 @@ void Cannon::Aim(QVector2D pos)
     this->transformation = t;
 }
 
-Bullet* Cannon::Shoot(Enemy enemy)
+Bullet* Cannon::Shoot(Enemy enemy, long elapsed)
 {
+    int xa = this->pixmap.size().width() - this->SizeX;
+    int ya = this->pixmap.size().height() - this->SizeY;
+    QVector2D tcenter(center.x() - xa * 0.5, center.y() - ya * 0.5);
+    QVector2D target = GetInterSect(enemy.center, enemy.next_checkpoint,
+                                    Bullet::speed, Enemy::speed,
+                                    tcenter, enemy.center);
+    if (target.isNull())
+        target = GetInterSect2((enemy.center - enemy.next_checkpoint).length(),
+                           enemy.next_checkpoint, enemy.next_checkpoint2,
+                           Bullet::speed, Enemy::speed,
+                           tcenter, enemy.center);
 
+    if (target.isNull())
+        return 0;
+    else
+        return new Bullet(tcenter, target, elapsed, QPixmap("bullet.png"));
 }
 
 QVector2D Cannon::GetInterSect(const QVector2D Aa, const QVector2D Ba,
@@ -119,7 +134,53 @@ QVector2D Cannon::GetInterSect(const QVector2D Aa, const QVector2D Ba,
             A = C;
             if (abs(Ball_dist1 - Ball_dist2) < 5)
             {
-                qDebug() << C;
+                return QVector2D(C.x(), C.y());
+            }
+            continue;
+        }
+        break;
+    }
+    return QVector2D();
+}
+
+QVector2D Cannon::GetInterSect2(float rmn,
+                      const QVector2D Aa, const QVector2D Ba,
+                      const float b_spd, const float e_spd,
+                      const QVector2D b_pos, const QVector2D e_pos)
+{
+    float Cann_dist1, Ball_dist1, Cann_dist2, Ball_dist2;
+    QVector2D A = Aa;
+    QVector2D B = Ba;
+
+    while (true)
+    {
+        QVector2D C = (A + B) * 0.5;
+
+        Cann_dist1 = (A - b_pos).length() * e_spd;
+        Ball_dist1 = ((A - e_pos).length() + rmn) * b_spd;
+        Cann_dist2 = (C - b_pos).length() * e_spd;
+        Ball_dist2 = ((C - e_pos).length() + rmn) * b_spd;
+
+        if (Ball_dist1 <= Cann_dist1 && Ball_dist2 >= Cann_dist2)
+        {
+            B = C;
+            if (abs(Ball_dist1 - Ball_dist2) < 5)
+            {
+                return QVector2D(C.x(), C.y());
+            }
+            continue;
+        }
+
+        Cann_dist1 = Cann_dist2;
+        Ball_dist1 = Ball_dist2;
+        Cann_dist2 = (B - b_pos).length() * e_spd;
+        Ball_dist2 = ((B - e_pos).length() + rmn) * b_spd;
+
+        if (Ball_dist1 <= Cann_dist1 && Ball_dist2 >= Cann_dist2)
+        {
+            A = C;
+            if (abs(Ball_dist1 - Ball_dist2) < 5)
+            {
                 return QVector2D(C.x(), C.y());
             }
             continue;

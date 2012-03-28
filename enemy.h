@@ -29,7 +29,7 @@ public:
 public:
     QList<QPoint*>* path;
     int spawned;
-    float speed;
+    const static float speed = 0.15;
     QVector2D next_checkpoint, next_checkpoint2;
 };
 

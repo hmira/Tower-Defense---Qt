@@ -49,6 +49,9 @@ void Helper::paint(QPainter *painter, QPaintEvent *event, long elapsed)
     painter->fillRect(event->rect(), background);
     painter->save();
 
+    bullet->Move(elapsed);
+    bullet->Draw(painter);
+
     for (int i = 0; i < enemies.size(); ++i) {
         enemies.at(i)->Move(elapsed);
         enemies.at(i)->Draw(painter);
@@ -59,13 +62,13 @@ void Helper::paint(QPainter *painter, QPaintEvent *event, long elapsed)
         cannons.at(i)->Draw(painter);
     }
 
-    bullet->Move(elapsed);
-    bullet->Draw(painter);
-
     if (elapsed % 10000 == 0 && elapsed != 0)
         enemies.pop_front();
 
-    qreal r = elapsed/1000.0;
-    int n = 78;
+    if (elapsed == 6000)
+    {
+        bullet = cannons.at(0)->Shoot(*enemies.at(0), elapsed);
+    }
+
     painter->restore();
 }

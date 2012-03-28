@@ -17,7 +17,7 @@ public:
     long spawned;
     QPixmap pixmap;
     bool hitEnd;
-    float speed;
+    const static float speed = 0.4;
 };
 
 #endif // BULLET_H

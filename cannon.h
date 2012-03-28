@@ -32,15 +32,23 @@ public:
     int hSizeX, hSizeY;
     int range;
     QTransform transformation;
-    Bullet * Shoot(Enemy enemy);
+    Bullet * Shoot(Enemy enemy, long elapsed);
 
     QVector2D GetInterSect(  const QVector2D A,                //from
                         const QVector2D B,                //to
                         const float b_spd,         //speed of bullet
                         const float e_spd,          //speed of enemy
                         const QVector2D b_pos,  //position of bullet
-                        const QVector2D e_pos   //position of enemy
-                        );         //returns the intersection, if any
+                        const QVector2D e_pos);   //position of enemy
+
+    QVector2D GetInterSect2( float rmn,             //lenght of track to next checkpoint
+                        const QVector2D A,                //from
+                        const QVector2D B,                //to
+                        const float b_spd,         //speed of bullet
+                        const float e_spd,          //speed of enemy
+                        const QVector2D b_pos,  //position of bullet
+                        const QVector2D e_pos);   //position of enemy
+
 };
 
 #endif // CANNON_H
