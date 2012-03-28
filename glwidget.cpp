@@ -33,3 +33,5 @@ void GLWidget::mousePressEvent(QMouseEvent * event)
 {
     this->focus = event->pos();
 }
+
+

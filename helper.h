@@ -74,6 +74,7 @@ public:
     QPixmap pixmap;
     QList<Enemy*> enemies;
     QList<Cannon*> cannons;
+    QList<Bullet*> bullets;
     Cannon *cannon;
     Bullet *bullet;
 

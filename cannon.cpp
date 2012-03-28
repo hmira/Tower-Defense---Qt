@@ -23,7 +23,9 @@ Cannon::Cannon(QPixmap pixmap, int x, int y)
     this->center.setY(y);
     this->drawing_origin.setX(x - hSizeX);
     this->drawing_origin.setY(y - hSizeY);
-    this->range = 60;
+    this->range = 120;
+    this->shotinterval = 1000;
+    this->lastshot = INT_MIN;
 }
 
 void Cannon::Draw(QPainter *painter)
@@ -78,6 +80,8 @@ void Cannon::Aim(QVector2D pos)
 
 Bullet* Cannon::Shoot(Enemy enemy, long elapsed)
 {
+    if (elapsed - lastshot < shotinterval) return 0;
+
     int xa = this->pixmap.size().width() - this->SizeX;
     int ya = this->pixmap.size().height() - this->SizeY;
     QVector2D tcenter(center.x() - xa * 0.5, center.y() - ya * 0.5);
@@ -90,10 +94,11 @@ Bullet* Cannon::Shoot(Enemy enemy, long elapsed)
                            Bullet::speed, Enemy::speed,
                            tcenter, enemy.center);
 
-    if (target.isNull())
+    if (target.isNull() || (this->center - target).length() > this->range)
         return 0;
-    else
-        return new Bullet(tcenter, target, elapsed, QPixmap("bullet.png"));
+
+    lastshot = elapsed;
+    return new Bullet(tcenter, target, elapsed, QPixmap("bullet.png"));
 }
 
 QVector2D Cannon::GetInterSect(const QVector2D Aa, const QVector2D Ba,

@@ -53,8 +53,13 @@ void Helper::paint(QPainter *painter, QPaintEvent *event, long elapsed, QPoint f
         DrawHighlight(painter, focus);
     }
 
-    bullet->Move(elapsed);
-    bullet->Draw(painter);
+    //bullet->Move(elapsed);
+    //bullet->Draw(painter);
+
+    for (int i = 0; i < bullets.size(); ++i) {
+        bullets.at(i)->Move(elapsed);
+        bullets.at(i)->Draw(painter);
+    }
 
     for (int i = 0; i < enemies.size(); ++i) {
         enemies.at(i)->Move(elapsed);
@@ -62,16 +67,32 @@ void Helper::paint(QPainter *painter, QPaintEvent *event, long elapsed, QPoint f
     }
 
     for (int i = 0; i < cannons.size(); ++i) {
-        cannons.at(i)->Aim(enemies.at(0)->center);
         cannons.at(i)->Draw(painter);
+        cannons.at(i)->Aim(enemies.at(0)->center);
     }
 
     if (elapsed % 10000 == 0 && elapsed != 0)
         enemies.pop_front();
 
-    if (elapsed == 6000)
-    {
-        bullet = cannons.at(0)->Shoot(*enemies.at(0), elapsed);
+    for (int i = 0; i < cannons.size(); ++i) {
+        int j = 0;
+        bool c = false;
+        for (j = 0; j < enemies.size(); ++j) {
+            if ((cannons.at(i)->center - enemies.at(j)->center).length() < cannons.at(i)->range)
+            {
+                c = true;
+                Bullet* bullet1 = cannons.at(i)->Shoot(*enemies.at(j), elapsed);
+                cannons.at(i)->Aim(enemies.at(j)->center);
+                if (bullet1 != NULL)
+                    bullets.push_back(bullet1);
+                break;
+            }
+        }
+        j = (j == enemies.size()) ? j-1:j;
+        if (!c)
+            this->cannons.at(i)->Aim(enemies.first()->center);
+        else
+            cannons.at(i)->Aim(enemies.at(j)->center);
     }
 
     painter->restore();

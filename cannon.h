@@ -31,6 +31,8 @@ public:
     int SizeX, SizeY;
     int hSizeX, hSizeY;
     int range;
+    long lastshot;
+    int shotinterval;
     QTransform transformation;
     Bullet * Shoot(Enemy enemy, long elapsed);
 
