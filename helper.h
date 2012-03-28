@@ -49,6 +49,7 @@
 
 #include "enemy.h"
 #include "cannon.h"
+#include "bullet.h"
 
 QT_BEGIN_NAMESPACE
 class QPainter;
@@ -65,14 +66,16 @@ public:
     void paint(QPainter *painter, QPaintEvent *event, long elapsed);
 
 public:
+    QPixmap qp_bullet;
+    QPixmap qp_enemy;
+    QPixmap qp_cannon;
+
     QBrush background;
-    QBrush circleBrush;
-    QFont textFont;
-    QPen circlePen;
-    QPen textPen;
     QPixmap pixmap;
     QList<Enemy*> enemies;
-    Cannon* cannon;
+    QList<Cannon*> cannons;
+    Cannon *cannon;
+    Bullet *bullet;
 
 private:
     int MapX, MapY;

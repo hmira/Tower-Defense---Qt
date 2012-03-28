@@ -1,7 +1,3 @@
-/****************************************************************************
-
-****************************************************************************/
-
 #include <QtGui>
 #include "glwidget.h"
 #include "widget.h"
@@ -23,6 +19,7 @@ Window::Window()
     //layout->addWidget(nativeLabel, 1, 0);
 
     layout->addWidget(glw, 0, 0);
+    //layout->addWidget(native, 0, 0);
     setLayout(layout);
 
     QTimer *timer = new QTimer(this);

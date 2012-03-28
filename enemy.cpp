@@ -58,6 +58,11 @@ void Enemy::Move(long elapsed)
             {
                 float e = (float)lap / length;
                 QPoint new_point = *this->path->at(i) + e * q;
+
+                this->next_checkpoint = QVector2D(this->path->at(i + 1)->x(), this->path->at(i + 1)->y());
+                if (i+2!=this->path->size())
+                    this->next_checkpoint2 = QVector2D(this->path->at(i + 2)->x(), this->path->at(i + 2)->y());
+
                 this->Update(new_point.x(), new_point.y());
                 return;
             }

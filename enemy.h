@@ -30,6 +30,7 @@ public:
     QList<QPoint*>* path;
     int spawned;
     float speed;
+    QVector2D next_checkpoint, next_checkpoint2;
 };
 
 #endif // ENEMY_H

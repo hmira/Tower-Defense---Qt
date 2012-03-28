@@ -1,6 +1,7 @@
 #include "cannon.h"
 #include <QVector2D>
 #include <qmath.h>
+#include <QDebug>
 
 Cannon::Cannon()
 {
@@ -10,6 +11,19 @@ Cannon::Cannon(QPixmap pixmap)
 {
     this->original_pixmap = pixmap;
     this->pixmap = pixmap;
+}
+
+Cannon::Cannon(QPixmap pixmap, int x, int y)
+{
+    this->original_pixmap = pixmap;
+    this->pixmap = pixmap;
+    this->SizeX = this->SizeY = 64;
+    this->hSizeX = this->hSizeY = 32;
+    this->center.setX(x);
+    this->center.setY(y);
+    this->drawing_origin.setX(x - hSizeX);
+    this->drawing_origin.setY(y - hSizeY);
+    this->range = 60;
 }
 
 void Cannon::Draw(QPainter *painter)
@@ -60,4 +74,57 @@ void Cannon::Aim(QVector2D pos)
     vec.normalize();
     t.setMatrix(vec.y(), vec.x(), 0, -vec.x() , vec.y(), 0, 0, 0, 1);
     this->transformation = t;
+}
+
+Bullet* Cannon::Shoot(Enemy enemy)
+{
+
+}
+
+QVector2D Cannon::GetInterSect(const QVector2D Aa, const QVector2D Ba,
+                          const float b_spd, const float e_spd,
+                          const QVector2D b_pos, const QVector2D e_pos
+                          )
+{
+    float Cann_dist1, Ball_dist1, Cann_dist2, Ball_dist2;
+    QVector2D A = Aa;
+    QVector2D B = Ba;
+
+    while (true)
+    {
+        QVector2D C = (A + B) * 0.5;
+
+        Cann_dist1 = (A - b_pos).length() * e_spd;
+        Ball_dist1 = (A - e_pos).length() * b_spd;
+        Cann_dist2 = (C - b_pos).length() * e_spd;
+        Ball_dist2 = (C - e_pos).length() * b_spd;
+
+        if (Ball_dist1 <= Cann_dist1 && Ball_dist2 >= Cann_dist2)
+        {
+            B = C;
+            if (abs(Ball_dist1 - Ball_dist2) < 5)
+            {
+                return QVector2D(C.x(), C.y());
+            }
+            continue;
+        }
+
+        Cann_dist1 = Cann_dist2;
+        Ball_dist1 = Ball_dist2;
+        Cann_dist2 = (B - b_pos).length() * e_spd;
+        Ball_dist2 = (B - e_pos).length() * b_spd;
+
+        if (Ball_dist1 <= Cann_dist1 && Ball_dist2 >= Cann_dist2)
+        {
+            A = C;
+            if (abs(Ball_dist1 - Ball_dist2) < 5)
+            {
+                qDebug() << C;
+                return QVector2D(C.x(), C.y());
+            }
+            continue;
+        }
+        break;
+    }
+    return QVector2D();
 }
