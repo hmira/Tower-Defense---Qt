@@ -25,6 +25,7 @@ Enemy::Enemy(QPixmap pixmap, QList<QPoint *> *path, int spawned)
     this->SizeX = this->SizeY = 35;
     this->hSizeX = this->hSizeY = 17;
     this->pixmap = pixmap;
+    this->Strength = 50;
 }
 
 void Enemy::Update(int x, int y)

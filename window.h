@@ -44,6 +44,7 @@
 #include <QWidget>
 
 #include "helper.h"
+#include "glwidget.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -58,7 +59,14 @@ class Window : public QWidget
 public:
     Window();
 
+public slots:
+    void SetMoneyLabel();
+    void EndGame();
+
 private:
+    QTimer *timer;
+    GLWidget *glw;
+    QLabel *money;
     Helper helper;
 };
 //! [0]

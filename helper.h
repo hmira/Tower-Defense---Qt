@@ -56,9 +56,9 @@ class QPainter;
 class QPaintEvent;
 QT_END_NAMESPACE
 
-//! [0]
 class Helper
 {
+
 public:
     Helper();
 
@@ -66,6 +66,8 @@ public:
     void paint(QPainter *painter, QPaintEvent *event, long elapsed, QPoint focus, QList<Cannon*> cannons);
 
 public:
+    int money;
+
     QPixmap qp_bullet;
     QPixmap qp_enemy;
     QPixmap qp_cannon;
@@ -85,6 +87,5 @@ private:
     void DrawHighlight(QPainter * painter, QPoint pos);
 
 };
-//! [0]
 
 #endif

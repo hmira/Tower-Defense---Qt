@@ -5,6 +5,8 @@
 #include <QPixmap>
 #include <QPainter>
 
+#include "enemy.h"
+
 class Bullet
 {
 public:
@@ -13,8 +15,10 @@ public:
     void Move(long elapsed);
     void Draw(QPainter *painter);
 
+    Enemy *enemy;
     QVector2D from, to, pos, direction;
     long spawned;
+    int power;
     QPixmap pixmap;
     bool hitEnd;
     const static float speed = 0.4;

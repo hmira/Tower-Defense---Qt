@@ -13,16 +13,18 @@ public:
     Enemy(QPixmap pixmap);
     Enemy(QPixmap pixmap, QList<QPoint*> *path, int spawned);
 
-
     void Update(int x, int y);
     void Draw(QPainter *painter);
     void Move(long elapsed);
+
+    void Hit(int power) {this->Strength -= power;}
 
     QPixmap pixmap;
     QPoint drawing_origin;
     QVector2D center;
     int SizeX, SizeY;
     int hSizeX, hSizeY;
+    int Strength;
 
     void setPath(QList<QPoint*> *path) {this->path = path;}
 

@@ -61,9 +61,14 @@ public:
     GLWidget(Helper *helper, QWidget *parent);
     void mousePressEvent(QMouseEvent * event);
     void mouseDoubleClickEvent(QMouseEvent *event);
+    int money;
 
 public slots:
     void animate();
+
+signals:
+    void updateMoney();
+    void gameOver();
 
 protected:
     void paintEvent(QPaintEvent *event);
@@ -74,6 +79,8 @@ private:
     QPoint focus;
 
     int MapX, MapY;
+
+    int map[11][6];
 
     QPixmap qp_cannon;
     QList<Cannon*> cannons;

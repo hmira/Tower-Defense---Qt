@@ -78,27 +78,29 @@ void Cannon::Aim(QVector2D pos)
     this->transformation = t;
 }
 
-Bullet* Cannon::Shoot(Enemy enemy, long elapsed)
+Bullet* Cannon::Shoot(Enemy *enemy, long elapsed)
 {
     if (elapsed - lastshot < shotinterval) return 0;
 
     int xa = this->pixmap.size().width() - this->SizeX;
     int ya = this->pixmap.size().height() - this->SizeY;
     QVector2D tcenter(center.x() - xa * 0.5, center.y() - ya * 0.5);
-    QVector2D target = GetInterSect(enemy.center, enemy.next_checkpoint,
+    QVector2D target = GetInterSect(enemy->center, enemy->next_checkpoint,
                                     Bullet::speed, Enemy::speed,
-                                    tcenter, enemy.center);
+                                    tcenter, enemy->center);
     if (target.isNull())
-        target = GetInterSect2((enemy.center - enemy.next_checkpoint).length(),
-                           enemy.next_checkpoint, enemy.next_checkpoint2,
+        target = GetInterSect2((enemy->center - enemy->next_checkpoint).length(),
+                           enemy->next_checkpoint, enemy->next_checkpoint2,
                            Bullet::speed, Enemy::speed,
-                           tcenter, enemy.center);
+                           tcenter, enemy->center);
 
     if (target.isNull() || (this->center - target).length() > this->range)
         return 0;
 
     lastshot = elapsed;
-    return new Bullet(tcenter, target, elapsed, QPixmap("bullet.png"));
+    Bullet*b = new Bullet(tcenter, target, elapsed, QPixmap("bullet.png"));
+    b->enemy = enemy;
+    return b;
 }
 
 QVector2D Cannon::GetInterSect(const QVector2D Aa, const QVector2D Ba,

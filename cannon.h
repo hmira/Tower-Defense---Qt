@@ -34,7 +34,7 @@ public:
     long lastshot;
     int shotinterval;
     QTransform transformation;
-    Bullet * Shoot(Enemy enemy, long elapsed);
+    Bullet * Shoot(Enemy* enemy, long elapsed);
 
     QVector2D GetInterSect(  const QVector2D A,                //from
                         const QVector2D B,                //to
