@@ -68,7 +68,8 @@ public slots:
 
 signals:
     void updateMoney();
-    void gameOver();
+    void gameOverW();
+    void gameOverL();
 
 protected:
     void paintEvent(QPaintEvent *event);

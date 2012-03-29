@@ -37,6 +37,7 @@ Helper::Helper()
     this->bullet = new Bullet(QVector2D(10,10),QVector2D(620,320),1000,qp_bullet);
 
     this->money = 0;
+    this->gameresult = 0;
 }
 
 void Helper::paint(QPainter *painter, QPaintEvent *event, long elapsed, QPoint focus, QList<Cannon*> cannons)
@@ -108,6 +109,16 @@ void Helper::paint(QPainter *painter, QPaintEvent *event, long elapsed, QPoint f
             enemies.removeOne(e);
             delete e;
         }
+    }
+
+    if (enemies.empty())
+    {
+        this->gameresult = 1;
+    }
+    else
+    {
+        if (enemies.at(0)->next_checkpoint == enemies.at(0)->next_checkpoint2 &&  enemies.at(0)->center.y() > 480)
+            this->gameresult = 2;
     }
 
     painter->restore();

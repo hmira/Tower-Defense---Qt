@@ -61,7 +61,8 @@ public:
 
 public slots:
     void SetMoneyLabel();
-    void EndGame();
+    void EndGameL();
+    void EndGameW();
 
 private:
     QTimer *timer;

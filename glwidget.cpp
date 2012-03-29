@@ -59,6 +59,16 @@ GLWidget::GLWidget(Helper *helper, QWidget *parent)
 
 void GLWidget::animate()
 {
+    if (helper->gameresult == 1)
+    {
+        gameOverW();
+        return;
+    }
+    else if (helper->gameresult == 2)
+    {
+        gameOverL();
+        return;
+    }
     elapsed = (elapsed + qobject_cast<QTimer*>(sender())->interval());
     repaint();
 }

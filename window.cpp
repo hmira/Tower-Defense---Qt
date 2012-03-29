@@ -30,7 +30,8 @@ Window::Window()
 
     connect(glw, SIGNAL(updateMoney()), this, SLOT(SetMoneyLabel()));
 
-    connect(glw, SIGNAL(gameOver()) , this, SLOT(EndGame()));
+    connect(glw, SIGNAL(gameOverL()) , this, SLOT(EndGameL()));
+    connect(glw, SIGNAL(gameOverW()) , this, SLOT(EndGameW()));
 
     timer->start(30);
 
@@ -44,7 +45,14 @@ void Window::SetMoneyLabel()
     this->money->setText(str);
 }
 
-void Window::EndGame()
+void Window::EndGameL()
 {
     this->timer->stop();
+    QMessageBox::critical(0,"Game over", "You lose");
+}
+
+void Window::EndGameW()
+{
+    this->timer->stop();
+    QMessageBox::information(0,"Game over", "You win");
 }

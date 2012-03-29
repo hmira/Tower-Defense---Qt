@@ -67,6 +67,7 @@ public:
 
 public:
     int money;
+    int gameresult;
 
     QPixmap qp_bullet;
     QPixmap qp_enemy;
